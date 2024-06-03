@@ -7,7 +7,7 @@
 %option yylineno
 relop   ([=!<>]=|<|>)
 binop   (\+|\-|\*|\/)
-comment (\/\/[^/r/n]*)
+comment (\/\/[^\r\n]*)
 digit ([0-9])
 positive ([1-9])
 whitespace ([\t\n\r ])
