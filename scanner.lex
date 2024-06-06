@@ -12,8 +12,8 @@ digit ([0-9])
 positive ([1-9])
 whitespace ([\t\n\r ])
 legalStringChar ([ !#-\[\]-~])
-escape ([\\\\|\\"|\\n|\\r|\\t|\\0])
-hexa (\\x([0-9A-Fa-f])([0-9A-Fa-f]))
+escape (\\\\|\\\"|\\n|\\r|\\t|\\0)
+hexa (\\x([0-7])([0-9A-Fa-f]))
 letter ([a-zA-Z])
 %%
 int                                         return INT;
@@ -45,6 +45,6 @@ continue                                    return CONTINUE;
 \"({legalStringChar}|{escape}|{hexa})*\"    return STRING;
 \"({legalStringChar}|{escape}|{hexa})*\\?   return UNCLOSED_STRING;
 \"({legalStringChar}|{escape}|{hexa})*\\[^\\\"nrt0]  return UNDEFINED_ESCAPE;
-\"({legalStringChar}|{escape}|{hexa})*\\((x([0-9a-fA-F][^0-9A-Fa-f]|[^0-9A-Fa-f][0-9A-Fa-f]|[^0-9A-Fa-f][^0-9A-Fa-f]|[^0-9A-Fa-f]))|x) return ILLEGAL_HEX;
+\"({legalStringChar}|{escape}|{hexa})*\\((x([0-7][^0-9A-Fa-f]|[^0-7][0-9A-Fa-f]|[^0-7][^0-9A-Fa-f]|[^0-7]))|x) return ILLEGAL_HEX;
 {whitespace}                                  ;
 .                                           return ERROR;

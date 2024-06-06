@@ -54,6 +54,17 @@ void printToken(int token){
 }
 
 void printHexError(){
+ if(yytext[yyleng-1]=='"'){
+	if(yytext[yyleng-2]=='x'&&yytext[yyleng-3]=='\\'){
+		cout<<"x"<<endl;
+	}
+	else if (yytext[yyleng-3]=='x'&&yytext[yyleng-4]=='\\'){
+		cout<<"x"<<yytext[yyleng-2]<<endl;
+	}
+	else if(yytext[yyleng-4]=='x'&&yytext[yyleng-5]=='\\'){
+		cout<<"x"<<yytext[yyleng-3]<<yytext[yyleng-2]<<endl;
+	}
+ }else{
 	if(yytext[yyleng-1]=='x'&&yytext[yyleng-2]=='\\'){
 		cout<<"x"<<endl;
 	}
@@ -63,6 +74,7 @@ void printHexError(){
 	else if(yytext[yyleng-3]=='x'&&yytext[yyleng-4]=='\\'){
 		cout<<"x"<<yytext[yyleng-2]<<yytext[yyleng-1]<<endl;
 	}
+ }
 }
 
 std::string TokenToString(int token){
@@ -95,6 +107,10 @@ case COMMENT: return "COMMENT";
 case ID: return "ID";
 case NUM: return "NUM";
 case STRING: return "STRING";
+case ERROR: return "ERROR";
+case UNCLOSED_STRING: return "UNCLOSED_STRING";
+case UNDEFINED_ESCAPE: return "UNDEFINED_ESCAPE";
+case ILLEGAL_HEX: return "ILLEGAL_HEX";
 
 
 default: return "OPS";
