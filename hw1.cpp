@@ -123,6 +123,9 @@ string processString(){
 	return result;
  }
  for(int i=1;i<yyleng-1;i++){
+	if(yytext[i]=='\\'&&yytext[i+1]=='0'){
+		return result;
+	}
 	 if(yytext[i]=='\\'){
 		
 		if(yytext[i+1]=='x'){
@@ -130,6 +133,9 @@ string processString(){
             stream << std::hex << yytext[i + 2] << yytext[i + 3];
             int asciiValue;
             stream >> asciiValue;
+			if(asciiValue==0){
+				return result;
+			}
         	result += static_cast<char>(asciiValue);
             i += 3;
 
@@ -152,8 +158,6 @@ string processString(){
 		}
 		i++;
 		}
-
-
 	}
 	else{
 		result+=yytext[i];
